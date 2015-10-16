@@ -26,3 +26,12 @@ func main() {
 }
 
 ```
+
+The above will output:  
+```
+lo-siento-no-hablo-espanol  
+jetudie-le-francais  
+some-special-chars-ccc-ssss-uueuuu-i  
+like-man  
+like-super-man  
+```
