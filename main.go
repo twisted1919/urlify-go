@@ -172,9 +172,6 @@ func (p *parser) Parse() string {
 	}
 
 	text := p.text
-	for _, char := range removeList {
-		text = strings.Replace(text, char, "", -1)
-	}
 
 	if p.language != "" {
 		chars, ok := charsMap[p.language]
@@ -193,6 +190,10 @@ func (p *parser) Parse() string {
 		for from, to := range chars {
 			text = strings.Replace(text, from, to, -1)
 		}
+	}
+
+	for _, char := range removeList {
+		text = strings.Replace(text, char, "", -1)
 	}
 
 	text = removePattern.ReplaceAllString(text, "")
