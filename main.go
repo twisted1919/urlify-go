@@ -168,14 +168,14 @@ func (p *parser) SetText(text string) *parser {
 }
 
 func (p *parser) AddToRemoveList(word string) *parser {
-	p.removeList = append(p.removeList, strings.TrimSpace(word))
+	p.removeList = append(p.removeList, strings.ToLower(strings.TrimSpace(word)))
 	return p
 }
 
 func (p *parser) RemoveFromRemoveList(word string) *parser {
-	word = strings.TrimSpace(word)
+	word = strings.ToLower(strings.TrimSpace(word))
 	if len(p.removeList) > 0 {
-		for i, w := range removeList {
+		for i, w := range p.removeList {
 			if w == word {
 				p.removeList = append(p.removeList[:i], p.removeList[i+1:]...)
 			}
@@ -189,7 +189,7 @@ func (p *parser) Parse() string {
 		return p.parsedText
 	}
 
-	text := strings.TrimSpace(p.text)
+	text := strings.ToLower(strings.TrimSpace(p.text))
 
 	if p.language != "" {
 		chars, ok := charsMap[p.language]
@@ -212,13 +212,13 @@ func (p *parser) Parse() string {
 
 	for _, word := range removeList {
 		text = strings.Replace(text, " "+word, "", -1)
-		text = strings.Replace(text, word+" ", "", -1)
+		text = strings.Replace(text, " "+word+" ", "", -1)
 	}
 
 	if len(p.removeList) > 0 {
 		for _, word := range p.removeList {
 			text = strings.Replace(text, " "+word, "", -1)
-			text = strings.Replace(text, word+" ", "", -1)
+			text = strings.Replace(text, " "+word+" ", "", -1)
 		}
 	}
 
@@ -228,7 +228,6 @@ func (p *parser) Parse() string {
 	text = strings.TrimSpace(text)
 	text = strings.Replace(text, " ", "-", -1)
 	text = strings.Replace(text, "--", "-", -1)
-	text = strings.ToLower(text)
 
 	if p.maxLength > 0 && len(text) > p.maxLength {
 		text = text[0:p.maxLength]
