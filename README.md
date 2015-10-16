@@ -1,9 +1,10 @@
 # urlify-go
-Transliterates non-ascii characters for use in URLs.
+Transliterates non-ascii characters for use in URLs.  
+Inspired from https://github.com/jbroadway/urlify  
 
 ### Install  
 ```
-$ go get https://github.com/twisted1919/evs-go.git .  
+$ go get https://github.com/twisted1919/evs-go.git  
 ```
 
 ### Usage
