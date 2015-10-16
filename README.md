@@ -4,7 +4,7 @@ Inspired from https://github.com/jbroadway/urlify
 
 ### Install  
 ```
-$ go get https://github.com/twisted1919/urlify-go  
+$ go get github.com/twisted1919/urlify-go  
 ```
 
 ### Usage
