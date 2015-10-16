@@ -171,7 +171,7 @@ func (p *parser) Parse() string {
 		return p.parsedText
 	}
 
-	text := p.text
+	text := strings.TrimSpace(p.text)
 
 	if p.language != "" {
 		chars, ok := charsMap[p.language]
