@@ -193,7 +193,8 @@ func (p *parser) Parse() string {
 	}
 
 	for _, char := range removeList {
-		text = strings.Replace(text, char, "", -1)
+		text = strings.Replace(text, " "+char, "", -1)
+		text = strings.Replace(text, char+" ", "", -1)
 	}
 
 	text = removePattern.ReplaceAllString(text, "")
