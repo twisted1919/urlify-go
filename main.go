@@ -141,6 +141,7 @@ type parser struct {
 	maxLength  int
 	text       string
 	parsedText string
+	removeList []string
 }
 
 // NewParser creates a new parser object
@@ -163,6 +164,23 @@ func (p *parser) SetMaxLength(length int) *parser {
 func (p *parser) SetText(text string) *parser {
 	p.parsedText = ""
 	p.text = text
+	return p
+}
+
+func (p *parser) AddToRemoveList(word string) *parser {
+	p.removeList = append(p.removeList, strings.TrimSpace(word))
+	return p
+}
+
+func (p *parser) RemoveFromRemoveList(word string) *parser {
+	word = strings.TrimSpace(word)
+	if len(p.removeList) > 0 {
+		for i, w := range removeList {
+			if w == word {
+				p.removeList = append(p.removeList[:i], p.removeList[i+1:]...)
+			}
+		}
+	}
 	return p
 }
 
@@ -192,9 +210,16 @@ func (p *parser) Parse() string {
 		}
 	}
 
-	for _, char := range removeList {
-		text = strings.Replace(text, " "+char, "", -1)
-		text = strings.Replace(text, char+" ", "", -1)
+	for _, word := range removeList {
+		text = strings.Replace(text, " "+word, "", -1)
+		text = strings.Replace(text, word+" ", "", -1)
+	}
+
+	if len(p.removeList) > 0 {
+		for _, word := range p.removeList {
+			text = strings.Replace(text, " "+word, "", -1)
+			text = strings.Replace(text, word+" ", "", -1)
+		}
 	}
 
 	text = removePattern.ReplaceAllString(text, "")
