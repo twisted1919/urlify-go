@@ -4,11 +4,11 @@ Inspired from https://github.com/jbroadway/urlify
 
 ### Install  
 ```
-$ go get https://github.com/twisted1919/evs-go.git  
+$ go get https://github.com/twisted1919/urlify-go  
 ```
 
 ### Usage
-```
+```go
 package main  
 
 import (  
